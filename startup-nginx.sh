@@ -3,7 +3,7 @@
 set -x
 
 chown -R www-data:www-data /var/www/rutorrent
-printf "John:$(openssl passwd -crypt ${RUTORRENT_PASSWORD})\n" >> /var/www/rutorrent/.htpasswd
+printf "${RUTORRENT_USER}:$(openssl passwd -crypt ${RUTORRENT_PASSWORD})\n" >> /data/torrents/config/.htpasswd
 mkdir -p /data/torrents/config/rtorrent/torrents
 chown -R www-data:www-data /data/torrents/config/rtorrent
 mkdir -p /data/torrents/config/rtorrent/log/nginx
@@ -20,10 +20,10 @@ rm /var/www/rutorrent/.htpasswd
 site=rutorrent-basic.nginx
 
 # Check if TLS needed
-if [ -e /downloads/nginx.key ] && [ -e /downloads/nginx.crt ]; then
+if [ -e /data/torrents/config/nginx.key ] && [ -e /data/torrents/config/nginx.crt ]; then
     mkdir -p /etc/nginx/ssl
-    cp /downloads/nginx.crt /etc/nginx/ssl/
-    cp /downloads/nginx.key /etc/nginx/ssl/
+    cp /data/torrents/config/nginx.crt /etc/nginx/ssl/
+    cp /data/torrents/config/nginx.key /etc/nginx/ssl/
     site=rutorrent-tls.nginx
 fi
 
@@ -32,8 +32,8 @@ cp /root/$site /etc/nginx/sites-enabled/
 [ -n "$WEBROOT" ] && ln -s /var/www/rutorrent /var/www/rutorrent/$WEBROOT
 
 # Check if .htpasswd presents
-if [ -e /downloads/.htpasswd ]; then
-    cp /downloads/.htpasswd /var/www/rutorrent/ && chmod 755 /var/www/rutorrent/.htpasswd && chown www-data:www-data /var/www/rutorrent/.htpasswd
+if [ -e /data/torrents/config/.htpasswd ]; then
+    cp /data/torrents/config/.htpasswd /var/www/rutorrent/ && chmod 755 /var/www/rutorrent/.htpasswd && chown www-data:www-data /var/www/rutorrent/.htpasswd
 else
 # disable basic auth
     sed -i 's/auth_basic/#auth_basic/g' /etc/nginx/sites-enabled/$site
