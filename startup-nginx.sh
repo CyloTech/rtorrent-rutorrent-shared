@@ -31,6 +31,7 @@ cp /root/$site /etc/nginx/sites-enabled/
 [ -n "$NOIPV6" ] && sed -i 's/listen \[::\]:/#/g' /etc/nginx/sites-enabled/$site
 [ -n "$WEBROOT" ] && ln -s /var/www/rutorrent /var/www/rutorrent/$WEBROOT
 sed -i 's#localhost#'${EXTERNAL_DOMAIN}'#g' /etc/nginx/sites-enabled/$site
+sed -i 's#https://##g' /etc/nginx/sites-enabled/$site
 
 # Check if .htpasswd presents
 if [ -e /torrents/config/.htpasswd ]; then
