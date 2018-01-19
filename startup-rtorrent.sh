@@ -14,6 +14,7 @@ useradd -u $RT_UID -g $RT_GID -d /home/rtorrent -m -s /bin/bash rtorrent
 mkdir -p /torrents/config/rtorrent/session
 mkdir -p /torrents/config/rtorrent/watch
 mkdir -p /torrents/config/log/rtorrent
+mkdir -p /torrents/completed
 if [ ! -e /torrents/config/rtorrent/.rtorrent.rc ]; then
     cp /root/.rtorrent.rc /torrents/config/rtorrent/
 fi
