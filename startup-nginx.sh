@@ -6,8 +6,8 @@ chown -R www-data:www-data /var/www/rutorrent
 printf "${RUTORRENT_USER}:$(openssl passwd -crypt ${RUTORRENT_PASSWORD})\n" >> /data/torrents/config/.htpasswd
 mkdir -p /data/torrents/config/rtorrent/torrents
 chown -R www-data:www-data /data/torrents/config/rtorrent
-mkdir -p /data/torrents/config/rtorrent/log/nginx
-chown www-data:www-data /data/torrents/config/rtorrent/log/nginx
+mkdir -p /data/torrents/config/log/rtorrent/nginx
+chown www-data:www-data /data/torrents/config/log/rtorrent/nginx
 
 rm -f /etc/nginx/sites-enabled/*
 
