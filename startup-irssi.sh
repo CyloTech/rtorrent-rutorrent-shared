@@ -7,23 +7,23 @@ sleep 5
 # Set up .autodl dir, and allow for configs to be saved.
 if [ ! -h /home/rtorrent/.autodl ]
 then
-	echo "Linking autodl config directory to /downloads/.autodl."
-	if [ ! -d /downloads/.autodl ]
+	echo "Linking autodl config directory to /data/torrents/config/rtorrent/autodl."
+	if [ ! -d /data/torrents/config/rtorrent/autodl ]
 	then
-		echo "Did not find /downloads/.autodl existed. Creating it."
-		mkdir /downloads/.autodl
-		chown rtorrent:rtorrent /downloads/.autodl
+		echo "Did not find /data/torrents/config/rtorrent/autodl existed. Creating it."
+		mkdir /data/torrents/config/rtorrent/autodl
+		chown rtorrent:rtorrent /data/torrents/config/rtorrent/autodl
 	fi
-	ln -s /downloads/.autodl /home/rtorrent/.autodl
+	ln -s /data/torrents/config/rtorrent/autodl /home/rtorrent/.autodl
 else
 	echo "Do not need to relink the autodl config directory."
 fi
 
-if [ -f /downloads/.autodl/autodl.cfg ]
+if [ -f /data/torrents/config/rtorrent/autodl/autodl.cfg ]
 then
 	echo "Found an existing autodl configs. Will not reinitialize."
-	irssi_port=$(grep gui-server-port /downloads/.autodl/autodl2.cfg | awk '{print $3}')
-	irssi_pass=$(grep gui-server-password /downloads/.autodl/autodl2.cfg | awk '{print $3}')
+	irssi_port=$(grep gui-server-port /data/torrents/config/rtorrent/autodl/autodl2.cfg | awk '{print $3}')
+	irssi_pass=$(grep gui-server-password /data/torrents/config/rtorrent/autodl/autodl2.cfg | awk '{print $3}')
 else
 	echo "Need to set up a new autodl install."
 
@@ -31,13 +31,13 @@ else
 	irssi_port=$((RANDOM%64025+1024))
 	
 	echo "Creating necessary configuration files ... "
-	touch /downloads/.autodl/autodl.cfg
-	cat >/downloads/.autodl/autodl2.cfg<<ADC
+	touch /data/torrents/config/rtorrent/autodl/autodl.cfg
+	cat >/data/torrents/config/rtorrent/autodl/autodl2.cfg<<ADC
 [options]
 gui-server-port = ${irssi_port}
 gui-server-password = ${irssi_pass}
 ADC
-	chown -R rtorrent:rtorrent /downloads/.autodl
+	chown -R rtorrent:rtorrent /data/torrents/config/rtorrent/autodl
 fi
 
 
@@ -63,6 +63,7 @@ if [ ! -d /var/www/rutorrent/plugins/autodl-irssi ]
 then
 	echo "Installing web plugin portion."
 	# Web plugin setup.
+	cd /var/www/rutorrent/plugins/
 	cd /var/www/rutorrent/plugins/
 	git clone https://github.com/autodl-community/autodl-rutorrent.git autodl-irssi > /dev/null 2>&1
 	cd autodl-irssi

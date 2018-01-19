@@ -3,11 +3,11 @@
 set -x
 
 chown -R www-data:www-data /var/www/rutorrent
-cp /downloads/.htpasswd /var/www/rutorrent/
-mkdir -p /downloads/.rutorrent/torrents
-chown -R www-data:www-data /downloads/.rutorrent
-mkdir -p /downloads/.log/nginx
-chown www-data:www-data /downloads/.log/nginx
+printf "John:$(openssl passwd -crypt ${RUTORRENT_PASSWORD})\n" >> /var/www/rutorrent/.htpasswd
+mkdir -p /data/torrents/config/rtorrent/torrents
+chown -R www-data:www-data /data/torrents/config/rtorrent
+mkdir -p /data/torrents/config/rtorrent/log/nginx
+chown www-data:www-data /data/torrents/config/rtorrent/log/nginx
 
 rm -f /etc/nginx/sites-enabled/*
 
