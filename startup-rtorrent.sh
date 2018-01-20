@@ -11,10 +11,14 @@ groupadd -g $RT_GID rtorrent
 useradd -u $RT_UID -g $RT_GID -d /home/rtorrent -m -s /bin/bash rtorrent
 
 # arrange dirs and configs
+mkdir -p /torrents/downloading
+mkdir -p /torrents/completed
+chown -R rtorrent:rtorrent /torrents/downloading
+chown -R rtorrent:rtorrent /torrents/completed
+
 mkdir -p /torrents/config/rtorrent/session
 mkdir -p /torrents/config/rtorrent/watch
 mkdir -p /torrents/config/log/rtorrent
-mkdir -p /torrents/completed
 if [ ! -e /torrents/config/rtorrent/.rtorrent.rc ]; then
     cp /root/.rtorrent.rc /torrents/config/rtorrent/
 fi
