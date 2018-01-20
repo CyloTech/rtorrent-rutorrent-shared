@@ -29,6 +29,8 @@ chown -R rtorrent:rtorrent /torrents/config/log/rtorrent
 
 rm -f /torrents/config/rtorrent/session/rtorrent.lock
 
+sed -i 's#http://mydomain.com#'${EXTERNAL_DOMAIN}'/no-auth#g' /var/www/rutorrent/plugins/fileshare/share.php
+
 # run
 su --login --command="TERM=xterm rtorrent" rtorrent 
 
