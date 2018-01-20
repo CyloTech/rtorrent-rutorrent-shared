@@ -3,8 +3,8 @@
 set -x
 
 chown -R www-data:www-data /var/www/rutorrent
-printf "${RUTORRENT_USER}:$(openssl passwd -crypt ${RUTORRENT_PASSWORD})\n" >> /torrents/config/.htpasswd
 mkdir -p /torrents/config/rutorrent/torrents
+printf "${RUTORRENT_USER}:$(openssl passwd -crypt ${RUTORRENT_PASSWORD})\n" >> /torrents/config/.htpasswd
 chown -R www-data:www-data /torrents/config/rutorrent
 mkdir -p /torrents/config/log/nginx
 chown www-data:www-data /torrents/config/log/nginx
