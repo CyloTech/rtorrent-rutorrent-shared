@@ -70,7 +70,7 @@ network.port_random.set = yes
 # Check hash for finished torrents. Might be usefull until the bug is
 # fixed that causes lack of diskspace not to be properly reported.
 #
-#pieces.hash.on_completion.set = no
+pieces.hash.on_completion.set = no
 
 # Set whether the client should try to connect to UDP trackers.
 trackers.use_udp.set = yes
